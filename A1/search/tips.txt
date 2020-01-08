@@ -1,0 +1,16 @@
+/** WRITE YOUR TIPS IN THIS FILE **/
+
+1. Manhattan distance is a fairly good heuristic function, but when there are obstacles exists, applying manhatton distance method directly might not be wise, 
+   so if possible, we can divide the original manhattan grid into some subgrids and count the manhattan distance for each subgrid and add them up.
+
+2. When we use to manhattan distance to implement our heuristic function, it is bad to only considering about the distances between the storages and boxes because if there is a sokoban problem with one robot to move several boxes, the cost on the movement of robot will be large which we should not ignore. Thus, we should consider both the distances between robots and boxes and the distances between boxes and storages, which can give us a more accurate cost estimation.
+   So we should give each box a unique storage which should have the relatively small sum on the distances, that means we need to arrange the boxes and storages wisely because we cannot arrange for each box a nearest storage.
+
+3. It is better to arrange for each box with an suitable unique storage instead of the nearest storage since it might have duplicates on storages, and, under some circumstance, such as all the boxes are next to one storage and other storages are distant, the nearest storage for each box will be the same and the esitimate cost will be small, but in fact, the cost should be much higher because only one box can stay in the popular storage and others have to stop on the distant storages.
+   Similar for robots, we cannot just consider the nearest robot for each box, we should make some assumptions on robots that some robot will move some box and after finish it, the position of the robot should be updated to the position of the storage that the box is moved to and then find the nearest robot for next box to move based on updated positions.
+
+4. There are also some "dead" situation for sokoban, such as a box is in a corner where walls or obstacles are next to box both on horizontal and vertical direction, then the box cannot be moved anymore. 
+   When this kind of situation occurs, we can just return a huge numeric value from the heurstic function to remind the system or the players that there is no way to win for this state, we can drop this state directly.
+
+5. There might be some tough situation need to consider, such as the boxes are positioned linearly next to each other and in front of them there are obstacles with one path between them and each time only one box can pass the access, under this circumstance, we need to move away other boxes seperate them from each other in order to let one box to pass, and then move the next box back and pass.
+   Even though the boxes might be near to storages, the cost might be quite large to get all boxes to storages position, so these kind of situation should be considered carefully.
